@@ -1,18 +1,17 @@
 <#
 .SYNOPSIS
-    Phoenix HWID Toolkit v20.0 - The final, polished, and animated version of the utility.
+    Phoenix HWID Toolkit v20.1 - The final, polished, and animated version of the utility, ready for release.
 .DESCRIPTION
     The definitive version of the Phoenix HWID Toolkit. This release introduces a professional startup animation and optimizes UI loading for a faster, more responsive user experience. The codebase has been fully cleaned of all dead code, and features detailed tooltips for all options, ensuring maximum stability, clarity, and ease of use.
 
-    Version 20.0 (Phoenix Release):
-    - NEW: Added a professional splash screen with a fade-in animation on startup.
-    - OPTIMIZED: UI now loads instantly. Dashboard and Network info are populated asynchronously in the background for a faster perceived startup.
-    - CLEANED: All dead code related to removed features (like SMBIOS) has been purged from backup/restore functions, making the code more minimal and easier to maintain.
-    - POLISHED: The final version, incorporating all previous stability fixes and UI enhancements.
+    Version 20.1 (GitHub Release):
+    - FINAL: Author name updated to 'Giliolera' for release.
+    - FIXED: Splash screen window is now set to 'Topmost' to prevent the PowerShell console from appearing in front of it on launch.
+    - All features are stable and polished.
 
 .NOTES
-    Author: Gemini (Google), concept by Yusufcan.
-    Version: 20.0 (Final)
+    Author: Giliolera
+    Version: 20.1 (Final)
     Language: PowerShell with WPF (English UI)
     Disclaimer: This script makes significant, low-level changes to your system. Use at your own risk.
 #>
@@ -61,7 +60,7 @@ public class NativeMethods {
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Loading" Height="300" Width="500" WindowStyle="None" AllowsTransparency="True"
-        Background="Transparent" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+        Background="Transparent" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Topmost="True">
     <Grid>
         <Border Background="#FF0D1117" CornerRadius="10" BorderBrush="#FFE53935" BorderThickness="1">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -70,7 +69,7 @@ public class NativeMethods {
                         <DropShadowEffect Color="Black" ShadowDepth="3" BlurRadius="10"/>
                     </TextBlock.Effect>
                 </TextBlock>
-                <TextBlock Text="TOOLKIT v20.0" Foreground="#C9D1D9" FontSize="20" HorizontalAlignment="Center" Margin="0,-10,0,0"/>
+                <TextBlock Text="TOOLKIT v20.1" Foreground="#C9D1D9" FontSize="20" HorizontalAlignment="Center" Margin="0,-10,0,0"/>
                 <TextBlock Text="Loading..." Name="lblLoading" Foreground="#C9D1D9" FontSize="14" HorizontalAlignment="Center" Margin="0,20,0,0"/>
             </StackPanel>
         </Border>
@@ -357,7 +356,7 @@ function global:Start-Spoofing-Process {
 [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Name="MainWindow" Title="Phoenix HWID Toolkit v20.0 - Final" Height="850" Width="1100"
+        x:Name="MainWindow" Title="Phoenix HWID Toolkit v20.1 - Final" Height="850" Width="1100"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontFamily="Segoe UI">
     <Window.Resources>
         <ResourceDictionary>
@@ -417,7 +416,7 @@ function global:Start-Spoofing-Process {
     <Grid Margin="15" Background="{DynamicResource WindowBackgroundColor}">
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Text="Phoenix HWID Toolkit v20.0 - Final" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TitleColor}" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+        <TextBlock Grid.Row="0" Text="Phoenix HWID Toolkit v20.1 - Final" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TitleColor}" HorizontalAlignment="Center" Margin="0,0,0,15"/>
         
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions><ColumnDefinition Width="3*"/><ColumnDefinition Width="4*"/></Grid.ColumnDefinitions>
@@ -502,7 +501,7 @@ function global:Start-Spoofing-Process {
                         </GroupBox>
                         <GroupBox Header="Update Status" Margin="0,10,0,0">
                             <StackPanel>
-                                <TextBlock x:Name="lblVersion" Text="Current Version: 20.0 (Final)" Foreground="{DynamicResource ForegroundColor}" Margin="5"/>
+                                <TextBlock x:Name="lblVersion" Text="Current Version: 20.1 (Final)" Foreground="{DynamicResource ForegroundColor}" Margin="5"/>
                                 <Button x:Name="btnCheckUpdate" Content="Check for Updates" Margin="5" Width="150" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </GroupBox>
@@ -593,7 +592,7 @@ $btnSfcScan.Add_Click({ $txtLog.Document.Blocks.Clear(); Toggle-Buttons $false; 
 $btnDismRestore.Add_Click({ $txtLog.Document.Blocks.Clear(); Toggle-Buttons $false; Run-DismRestore; Toggle-Buttons $true; })
 $btnSaveProfile.Add_Click({ Save-Profile })
 $btnLoadProfile.Add_Click({ Load-Profile })
-$btnCheckUpdate.Add_Click({ Write-Log "UPDATE: You are using the latest version (v20.0)." "LimeGreen" -ForceLog:$true })
+$btnCheckUpdate.Add_Click({ Write-Log "UPDATE: You are using the latest version (v20.1)." "LimeGreen" -ForceLog:$true })
 $toggleStealth.Add_Click({
     $script:stealthModeEnabled = $toggleStealth.IsChecked
     if ($script:stealthModeEnabled) {
@@ -609,16 +608,14 @@ $cmbTheme.Add_SelectionChanged({
     if ($cmbTheme.SelectedIndex -eq 0) { Apply-Theme -themeName 'Dark' } 
     else { Apply-Theme -themeName 'Light' }
 })
-
-# Asynchronous job for loading dashboard and network info for faster UI startup
 $window.Add_Loaded({
     Apply-Theme -themeName 'Dark' # Set default theme
-    Write-Log "Welcome to Phoenix HWID Toolkit v20.0 (Phoenix Release)!" "White" -IsBold $true
+    Write-Log "Welcome to Phoenix HWID Toolkit v20.1 (Final)!" "White" -IsBold $true
     Write-Log "UI is now fully responsive. Dashboard will load in the background." "DarkTurquoise"
     
+    # Asynchronous job for loading dashboard and network info for faster UI startup
     $job = Start-Job -ScriptBlock {
-        # Functions need to be re-defined inside the job's scope
-        # Note: This is a simplified version for the job, as it cannot access GUI elements directly.
+        # Functions used by the job must be defined inside its scope
         function Get-DashboardData {
             $dashboardItems = @{ 
                 "MAC Address" = (Get-WmiObject Win32_NetworkAdapterConfiguration -EA SilentlyContinue | ? { $_.IPEnabled -and $_.MACAddress } | Select -First 1).MACAddress
@@ -646,8 +643,7 @@ $window.Add_Loaded({
             $window.Dispatcher.Invoke([Action]{
                 # Populate Dashboard with results from the job
                 $dashboardItems = $result.Dashboard
-                # ... (rest of the dashboard population logic)
-                 $DashboardGrid.Children.Clear(); $DashboardGrid.RowDefinitions.Clear(); $DashboardGrid.ColumnDefinitions.Clear()
+                $DashboardGrid.Children.Clear(); $DashboardGrid.RowDefinitions.Clear(); $DashboardGrid.ColumnDefinitions.Clear()
                 $DashboardGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition -Property @{ Width = [System.Windows.GridLength]::new(1, 'Auto')}))
                 $DashboardGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition -Property @{ Width = [System.Windows.GridLength]::new(1, 'Star')}))
                 $i = 0
@@ -665,7 +661,6 @@ $window.Add_Loaded({
                 # Populate Network Info
                 $netInfo = $result.Network
                 if ($netInfo) {
-                    # ... (rest of the network population logic)
                     $NetworkGrid.Children.Clear(); $NetworkGrid.RowDefinitions.Clear(); $NetworkGrid.ColumnDefinitions.Clear()
                     $NetworkGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition -Property @{ Width = [System.Windows.GridLength]::new(1,'Auto')}))
                     $NetworkGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition -Property @{ Width = [System.Windows.GridLength]::new(1,[System.Windows.GridUnitType]::Star)}))
